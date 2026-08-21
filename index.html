@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motion in a Straight Line — Quiz | Sarvodaya Science Academy</title>
+<style>
+  :root{
+    --navy:#0b2545;
+    --navy2:#123a6b;
+    --gold:#c9982e;
+    --gold-light:#f2d98a;
+    --red:#b3282d;
+    --cream:#faf7f0;
+    --ink:#1c2430;
+    --muted:#6b7686;
+    --good:#1f7a4d;
+    --bad:#b3282d;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif;
+    background: linear-gradient(180deg,var(--navy) 0%, var(--navy2) 220px, var(--cream) 220px);
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 18px 60px;}
+  header.brand{
+    padding:28px 18px 20px;
+    text-align:center;
+    color:#fff;
+  }
+  header.brand .tag{
+    letter-spacing:3px;
+    font-size:11px;
+    color:var(--gold-light);
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  header.brand h1{
+    margin:4px 0 2px;
+    font-size:26px;
+    font-weight:700;
+  }
+  header.brand .sub{
+    font-size:13px;
+    color:#d8e2f2;
+  }
+  header.brand .line{
+    width:60px;height:3px;background:var(--gold);
+    margin:14px auto 0;border-radius:2px;
+  }
+  .topcard{
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 8px 30px rgba(11,37,69,0.15);
+    margin-top:-40px;
+    padding:22px 22px 18px;
+    border-top:4px solid var(--gold);
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .pill{
+    background:#eef2f8;
+    color:var(--navy);
+    font-size:12px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:20px;
+  }
+  .progress-outer{
+    height:8px;background:#e9edf3;border-radius:6px;overflow:hidden;margin:14px 0 4px;
+  }
+  .progress-inner{
+    height:100%;background:linear-gradient(90deg,var(--gold),var(--red));
+    width:0%;transition:width .25s ease;
+  }
+  .progress-label{font-size:12px;color:var(--muted);text-align:right;}
+
+  .qcard{
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:0 4px 16px rgba(11,37,69,0.08);
+    padding:20px 20px 16px;
+    margin-top:16px;
+  }
+  .qnum{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:5px;
+    margin-bottom:10px;
+  }
+  .qtopic{
+    display:inline-block;
+    font-size:11px;
+    color:var(--red);
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    margin-left:8px;
+  }
+  .qtext{
+    font-size:16px;
+    font-weight:600;
+    line-height:1.5;
+    margin:6px 0 14px;
+    color:var(--ink);
+  }
+  .options{display:flex;flex-direction:column;gap:9px;}
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    border:1.5px solid #e2e6ee;
+    border-radius:9px;
+    padding:11px 13px;
+    cursor:pointer;
+    transition:.15s;
+    font-size:14.5px;
+    line-height:1.4;
+  }
+  .opt:hover{border-color:var(--gold);background:#fffaf0;}
+  .opt.selected{border-color:var(--navy);background:#eef3fb;font-weight:600;}
+  .opt .letter{
+    flex:0 0 auto;
+    width:24px;height:24px;
+    border-radius:50%;
+    background:#eef2f8;
+    color:var(--navy);
+    font-size:12px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .opt.selected .letter{background:var(--navy);color:#fff;}
+
+  .navrow{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:22px;gap:10px;
+  }
+  button{
+    font-family:inherit;
+    border:none;cursor:pointer;
+    font-weight:700;
+    border-radius:9px;
+    padding:11px 20px;
+    font-size:14px;
+    transition:.15s;
+  }
+  .btn-ghost{
+    background:transparent;color:var(--navy);border:1.5px solid #d7deea;
+  }
+  .btn-ghost:disabled{opacity:.35;cursor:not-allowed;}
+  .btn-primary{
+    background:var(--navy);color:#fff;
+  }
+  .btn-primary:hover{background:var(--navy2);}
+  .btn-submit{
+    background:linear-gradient(90deg,var(--red),#8f1f24);
+    color:#fff;
+  }
+  .jumpgrid{
+    display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:18px;
+  }
+  .jumpgrid button{
+    padding:0;height:32px;font-size:12px;
+    background:#eef2f8;color:var(--navy);font-weight:700;
+  }
+  .jumpgrid button.answered{background:var(--gold);color:#fff;}
+  .jumpgrid button.current{outline:2px solid var(--navy);outline-offset:2px;}
+
+  /* Results */
+  .hidden{display:none;}
+  .score-hero{
+    text-align:center;padding:10px 0 6px;
+  }
+  .score-num{
+    font-size:52px;font-weight:800;color:var(--navy);
+  }
+  .score-total{font-size:20px;color:var(--muted);}
+  .score-msg{font-size:14px;color:var(--muted);margin-top:6px;}
+  .stat-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;
+  }
+  .stat-box{
+    background:#f5f7fb;border-radius:10px;padding:14px 8px;text-align:center;
+  }
+  .stat-box .n{font-size:22px;font-weight:800;}
+  .stat-box .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+  .stat-box.correct .n{color:var(--good);}
+  .stat-box.wrong .n{color:var(--bad);}
+  .stat-box.skip .n{color:#a07d1e;}
+
+  .topic-analysis h3, .review h3{
+    font-size:14px;text-transform:uppercase;letter-spacing:.5px;color:var(--navy);
+    margin:26px 0 12px;border-bottom:2px solid #eef2f8;padding-bottom:8px;
+  }
+  .topic-row{
+    display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;
+  }
+  .topic-row .tname{flex:0 0 150px;font-weight:600;color:var(--ink);}
+  .topic-bar-outer{flex:1;height:10px;background:#e9edf3;border-radius:6px;overflow:hidden;}
+  .topic-bar-inner{height:100%;background:linear-gradient(90deg,var(--gold),var(--navy));}
+  .topic-frac{flex:0 0 44px;text-align:right;color:var(--muted);font-weight:600;}
+
+  .rev-item{
+    border-radius:10px;padding:14px 16px;margin-bottom:10px;
+    border-left:4px solid var(--good);background:#f4faf6;
+  }
+  .rev-item.wrong{border-left-color:var(--bad);background:#fdf4f4;}
+  .rev-q{font-weight:600;font-size:14px;margin-bottom:8px;}
+  .rev-line{font-size:13px;margin:3px 0;}
+  .rev-line b{font-weight:700;}
+  .rev-line.ok{color:var(--good);}
+  .rev-line.no{color:var(--bad);}
+
+  .footer-note{
+    text-align:center;font-size:11.5px;color:var(--muted);margin-top:30px;line-height:1.6;
+  }
+  .footer-note b{color:var(--navy);}
+  .retry-btn{display:block;margin:22px auto 0;}
+
+  @media (max-width:480px){
+    .jumpgrid{grid-template-columns:repeat(5,1fr);}
+    .stat-grid{grid-template-columns:1fr 1fr 1fr;gap:6px;}
+    .score-num{font-size:42px;}
+    .topic-row .tname{flex-basis:110px;font-size:12px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <div class="tag">Sarvodaya Science Academy · Known for Excellence</div>
+    <h1>Motion in a Straight Line</h1>
+    <div class="sub">Class 11 Physics · 20 MCQ Practice Quiz</div>
+    <div class="line"></div>
+  </header>
+
+  <div class="topcard" id="quizArea">
+    <div class="meta-row">
+      <span class="pill" id="qCounter">Question 1 / 20</span>
+      <span class="pill" id="qTopicPill">Basic Concepts</span>
+    </div>
+    <div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0 of 20 answered</div>
+
+    <div class="qcard">
+      <div>
+        <span class="qnum" id="qNumLabel">Q1</span>
+        <span class="qtopic" id="qTopicLabel">Basic Concepts</span>
+      </div>
+      <div class="qtext" id="qText"></div>
+      <div class="options" id="qOptions"></div>
+    </div>
+
+    <div class="navrow">
+      <button class="btn-ghost" id="prevBtn">&larr; Previous</button>
+      <button class="btn-primary" id="nextBtn">Next &rarr;</button>
+      <button class="btn-submit hidden" id="submitBtn">Submit Quiz</button>
+    </div>
+
+    <div class="jumpgrid" id="jumpGrid"></div>
+  </div>
+
+  <div class="topcard hidden" id="resultArea">
+    <div class="score-hero">
+      <div class="score-num"><span id="scoreVal">0</span><span class="score-total">/20</span></div>
+      <div class="score-msg" id="scoreMsg"></div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box correct"><div class="n" id="statCorrect">0</div><div class="l">Correct</div></div>
+      <div class="stat-box wrong"><div class="n" id="statWrong">0</div><div class="l">Wrong</div></div>
+      <div class="stat-box skip"><div class="n" id="statSkip">0</div><div class="l">Skipped</div></div>
+    </div>
+
+    <div class="topic-analysis">
+      <h3>Topic-wise Analysis</h3>
+      <div id="topicList"></div>
+    </div>
+
+    <div class="review">
+      <h3>Answer Review</h3>
+      <div id="reviewList"></div>
+    </div>
+
+    <button class="btn-primary retry-btn" id="retryBtn">Retry Quiz</button>
+
+    <div class="footer-note">
+      <b>Sarvodaya Science Academy</b> — Kuju Colony &amp; Near Post Office, Kuju<br>
+      An initiative by Udit Bhaiya
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {topic:"Basic Concepts", q:"A body covers a certain distance and returns to its starting point. Which quantity is definitely zero for this motion?", opts:["Distance travelled","Displacement","Average speed","Total time taken"], correct:1},
+  {topic:"Basic Concepts", q:"Which of the following can be zero even when the corresponding vector quantity is non-zero?", opts:["Average velocity","Displacement","Average speed","Instantaneous speed"], correct:0},
+  {topic:"Basic Concepts", q:"Speed is a scalar quantity while velocity is a vector quantity. This means velocity additionally specifies:", opts:["Only magnitude","Only direction","Both magnitude and direction","Neither magnitude nor direction"], correct:2},
+  {topic:"Basic Concepts", q:"For a body moving with uniform speed along a circular path, which statement is true?", opts:["Velocity is constant","Acceleration is zero","Speed is constant but velocity keeps changing","Both speed and velocity are constant"], correct:2},
+
+  {topic:"Acceleration & Graphs", q:"On a position-time (x-t) graph, the slope of the tangent at any instant gives:", opts:["Average velocity","Instantaneous velocity","Instantaneous acceleration","Displacement"], correct:1},
+  {topic:"Acceleration & Graphs", q:"On a velocity-time (v-t) graph, the area under the curve between two time instants represents:", opts:["Acceleration","Displacement","Force","Average velocity"], correct:1},
+  {topic:"Acceleration & Graphs", q:"If the v-t graph of a particle is a straight line parallel to the time axis, the particle is moving with:", opts:["Uniform acceleration","Zero velocity","Uniform (constant) velocity","Non-uniform velocity"], correct:2},
+  {topic:"Acceleration & Graphs", q:"A particle's velocity-time graph is a straight line with a negative, constant slope. The motion is:", opts:["Uniformly accelerated","Uniformly retarded (deceleration)","Non-uniform acceleration","Zero acceleration"], correct:1},
+  {topic:"Acceleration & Graphs", q:"The slope of a speed-time graph can never be:", opts:["Positive","Negative","Zero","It has no restriction — none of the above"], correct:3},
+
+  {topic:"Equations of Motion", q:"A body starts from rest and moves with uniform acceleration a. The velocity after time t is given by:", opts:["v = u + at, with u = 0 so v = at","v = at^2","v = u - at","v = 2at"], correct:0},
+  {topic:"Equations of Motion", q:"Using v^2 = u^2 + 2as, if a body starts from rest (u = 0) and covers a distance s with acceleration a, its final velocity is:", opts:["v = as","v = sqrt(2as)","v = 2as","v = sqrt(as)"], correct:1},
+  {topic:"Equations of Motion", q:"The distance covered by a uniformly accelerated body starting from rest in time t is proportional to:", opts:["t","t^2","1/t","sqrt(t)"], correct:1},
+  {topic:"Equations of Motion", q:"A car moving at 20 m/s is brought to rest by uniform deceleration of 5 m/s^2. The time taken to stop is:", opts:["2 s","4 s","5 s","10 s"], correct:1},
+  {topic:"Equations of Motion", q:"A particle starting from rest has an acceleration of 2 m/s^2. The distance covered in the first 4 seconds is:", opts:["8 m","16 m","32 m","4 m"], correct:1},
+  {topic:"Equations of Motion", q:"For a uniformly accelerated motion, the distance covered in the nth second is given by the formula:", opts:["s_n = u + a(2n-1)/2","s_n = u + at","s_n = ut + (1/2)at^2","s_n = 2un + a"], correct:0},
+
+  {topic:"Relative Motion", q:"Two trains A and B move in the same direction at 40 km/h and 30 km/h respectively. The velocity of A relative to B is:", opts:["70 km/h","10 km/h","40 km/h","30 km/h"], correct:1},
+  {topic:"Relative Motion", q:"Two cars move towards each other with speeds 20 m/s and 15 m/s. The relative velocity of approach is:", opts:["5 m/s","20 m/s","35 m/s","15 m/s"], correct:2},
+  {topic:"Relative Motion", q:"A boat can travel at 5 m/s in still water. It moves in a river flowing at 3 m/s. The maximum possible speed of the boat relative to the ground is:", opts:["2 m/s","5 m/s","8 m/s","3 m/s"], correct:2},
+
+  {topic:"Free Fall & Numericals", q:"A ball is dropped from a height and falls freely under gravity (g = 10 m/s^2). Its velocity after 3 seconds is:", opts:["10 m/s","20 m/s","30 m/s","90 m/s"], correct:2},
+  {topic:"Free Fall & Numericals", q:"A stone is thrown vertically upward with a speed of 20 m/s (g = 10 m/s^2). The maximum height reached is:", opts:["10 m","20 m","40 m","30 m"], correct:1}
+];
+
+const TOPIC_ORDER = ["Basic Concepts","Acceleration & Graphs","Equations of Motion","Relative Motion","Free Fall & Numericals"];
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+const qText = document.getElementById('qText');
+const qOptions = document.getElementById('qOptions');
+const qNumLabel = document.getElementById('qNumLabel');
+const qTopicLabel = document.getElementById('qTopicLabel');
+const qTopicPill = document.getElementById('qTopicPill');
+const qCounter = document.getElementById('qCounter');
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const submitBtn = document.getElementById('submitBtn');
+const jumpGrid = document.getElementById('jumpGrid');
+
+function buildJumpGrid(){
+  jumpGrid.innerHTML = '';
+  QUESTIONS.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1;
+    b.addEventListener('click', ()=>{ current = i; render(); });
+    jumpGrid.appendChild(b);
+  });
+}
+
+function render(){
+  const q = QUESTIONS[current];
+  qNumLabel.textContent = 'Q' + (current+1);
+  qTopicLabel.textContent = q.topic;
+  qTopicPill.textContent = q.topic;
+  qCounter.textContent = `Question ${current+1} / ${QUESTIONS.length}`;
+  qText.textContent = q.q;
+
+  qOptions.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'opt' + (answers[current]===idx ? ' selected' : '');
+    div.innerHTML = `<span class="letter">${letters[idx]}</span><span>${opt}</span>`;
+    div.addEventListener('click', ()=>{
+      answers[current] = idx;
+      render();
+    });
+    qOptions.appendChild(div);
+  });
+
+  prevBtn.disabled = current === 0;
+  if(current === QUESTIONS.length - 1){
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+  } else {
+    nextBtn.classList.remove('hidden');
+    submitBtn.classList.add('hidden');
+  }
+
+  const answeredCount = answers.filter(a=>a!==null).length;
+  progressBar.style.width = (answeredCount/QUESTIONS.length*100) + '%';
+  progressLabel.textContent = `${answeredCount} of ${QUESTIONS.length} answered`;
+
+  Array.from(jumpGrid.children).forEach((b,i)=>{
+    b.classList.toggle('answered', answers[i]!==null);
+    b.classList.toggle('current', i===current);
+  });
+}
+
+prevBtn.addEventListener('click', ()=>{ if(current>0){ current--; render(); }});
+nextBtn.addEventListener('click', ()=>{ if(current<QUESTIONS.length-1){ current++; render(); }});
+submitBtn.addEventListener('click', showResults);
+
+function showResults(){
+  document.getElementById('quizArea').classList.add('hidden');
+  const resultArea = document.getElementById('resultArea');
+  resultArea.classList.remove('hidden');
+
+  let correct=0, wrong=0, skipped=0;
+  const topicStats = {};
+  TOPIC_ORDER.forEach(t=> topicStats[t] = {correct:0, total:0});
+
+  QUESTIONS.forEach((q,i)=>{
+    topicStats[q.topic].total++;
+    if(answers[i]===null){ skipped++; }
+    else if(answers[i]===q.correct){ correct++; topicStats[q.topic].correct++; }
+    else { wrong++; }
+  });
+
+  document.getElementById('scoreVal').textContent = correct;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statSkip').textContent = skipped;
+
+  const pct = Math.round((correct/QUESTIONS.length)*100);
+  let msg = '';
+  if(pct>=85) msg = 'Excellent! Concepts are very clear.';
+  else if(pct>=60) msg = 'Good attempt — revise the weaker topics below.';
+  else if(pct>=35) msg = 'Needs more practice — focus on the topics marked weak.';
+  else msg = 'Restart from NCERT theory before attempting again.';
+  document.getElementById('scoreMsg').textContent = `${pct}% score — ${msg}`;
+
+  const topicList = document.getElementById('topicList');
+  topicList.innerHTML = '';
+  TOPIC_ORDER.forEach(t=>{
+    const s = topicStats[t];
+    const p = s.total ? Math.round((s.correct/s.total)*100) : 0;
+    const row = document.createElement('div');
+    row.className = 'topic-row';
+    row.innerHTML = `
+      <div class="tname">${t}</div>
+      <div class="topic-bar-outer"><div class="topic-bar-inner" style="width:${p}%"></div></div>
+      <div class="topic-frac">${s.correct}/${s.total}</div>
+    `;
+    topicList.appendChild(row);
+  });
+
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  QUESTIONS.forEach((q,i)=>{
+    const userIdx = answers[i];
+    const isCorrect = userIdx === q.correct;
+    const div = document.createElement('div');
+    div.className = 'rev-item' + (isCorrect ? '' : ' wrong');
+    let userLine;
+    if(userIdx===null){
+      userLine = `<div class="rev-line no">Your answer: <b>Not attempted</b></div>`;
+    } else {
+      userLine = `<div class="rev-line ${isCorrect ? 'ok' : 'no'}">Your answer: <b>${letters[userIdx]}. ${q.opts[userIdx]}</b></div>`;
+    }
+    const correctLine = isCorrect ? '' : `<div class="rev-line ok">Correct answer: <b>${letters[q.correct]}. ${q.opts[q.correct]}</b></div>`;
+    div.innerHTML = `
+      <div class="rev-q">Q${i+1}. ${q.q} <span style="font-weight:400;color:var(--muted);font-size:11px;">(${q.topic})</span></div>
+      ${userLine}
+      ${correctLine}
+    `;
+    reviewList.appendChild(div);
+  });
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  answers = new Array(QUESTIONS.length).fill(null);
+  current = 0;
+  document.getElementById('resultArea').classList.add('hidden');
+  document.getElementById('quizArea').classList.remove('hidden');
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+buildJumpGrid();
+render();
+</script>
+</body>
+</html>
